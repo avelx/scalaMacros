@@ -18,5 +18,15 @@ object Macros {
   // 2 - splicing ${AST} => value
   def myMacroImpl(number: Expr[Int], string: Expr[String])(using Quotes): Expr[String] =
     Expr("This is a string: ")
-    
+
+  inline def secondMacro(number: Int, string: String): String =
+    ${ secondMacroImp('number, 'string) }
+  
+  def secondMacroImp(num: Expr[Int], strExpr: Expr[String]) (using Quotes): Expr[String] = {
+    val theNumber: Int = num.valueOrAbort
+    if theNumber > 10 then 
+      Expr(s"This is the number: $theNumber")
+    else 
+      throw new Error(s"Unxpected number: $theNumber")  
+  }
 }
