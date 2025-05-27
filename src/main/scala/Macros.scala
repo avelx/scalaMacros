@@ -16,6 +16,8 @@ object Macros {
 
   import quoted._
 
+  // A: Basic example =>
+
   // 1 - quoting 'exp => AST
   inline def myMacro(number: Int, string: String): String =
     ${ myMacroImpl('number, 'string) }
@@ -40,6 +42,7 @@ object Macros {
     }
   }
 
+  // B: Enhanced patter matching
   inline def pmOption(inline opt: Option[Int]): String = ${ pmOptionImp('opt) }
 
   def pmOptionImp(opt: Expr[Option[Int]])(using Quotes): Expr[String] = {
@@ -52,18 +55,43 @@ object Macros {
     res
   }
 
+  // C: More complex example how to deal with the list
   inline def optimized[A](inline list: List[A]): String =
     ${ optimizedImpl[A]('list) }
 
-  def optimizedImpl[A](list: Expr[List[A]])(using Quotes): Expr[String] = {
+  def optimizedImpl[A: Type](list: Expr[List[A]])(using Quotes): Expr[String] = {
     val desc = list match {
       case '{
-//            type t1
-            ($original: List[t1]).map[t2]($f).map[t3]($g)
+            type t3 <: A // <== This is a type restriction
+            ($original: List[t1]).map[t2]($f).map[`t3`]($g)
         } => s"Some result: ${f.show} and ${g.show}"
       case l
         => "simple list"
     }
+    println(desc)
     Expr(desc)
   }
+
+  // Scala compile time: reflection
+  // instance.method(42)
+  inline def callMeDynamically[A](instance: A, name: String, arg: Int) =
+    ${ callMeDynamicallyImp('instance, 'name, 'arg ) }
+
+  // note: a return type of calling method is important
+  def callMeDynamicallyImp[A: Type](instance: Expr[A], name: Expr[String], arg: Expr[Int])(using q: Quotes) : Expr[String] = {
+    import q.reflect._ // the ability to build AST
+    // typed    ASTs: Expr[A]
+    // untyped/?  AST = Term
+
+    val term = instance.asTerm
+
+    // find the method by its name
+    val method = Select.unique(term, name.valueOrAbort)
+    val invocation = Apply(method, List(arg.asTerm))
+    val r = invocation.asExprOf[String]
+    println(s"Invocation-A: ${invocation}")
+    println(s"Invocation-B: ${r.toString()}")
+    r
+  }
+
 }
