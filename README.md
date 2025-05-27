@@ -3,8 +3,10 @@ Year of 2025:
 
 ==> LSUG Feb 2025 Daniel Ciocîrlan
 ** https://www.youtube.com/watch?v=yfusAyUWxoI
+
 ** ScalaDoc::Refs=>
 https://docs.scala-lang.org/scala3/guides/macros/quotes.html
+https://docs.scala-lang.org/scala3/guides/macros/inline.html
 
 Topics:
 ** Inlining: compile time evaluation
