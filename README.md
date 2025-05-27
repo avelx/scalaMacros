@@ -9,3 +9,7 @@ Topics:
 ** Scala compile time reflection
 
 ** TODO: synthesis a new type at the compile time / CT -> last 10 mins of the video
+
+*** Ideas
+* - evaluate if a method exists in the given instance name
+* - SQL queries / check correctness of the mapping etc
