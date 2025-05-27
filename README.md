@@ -1,7 +1,10 @@
 Based on the Scala London User group video =>
 Year of 2025: 
+
 ==> LSUG Feb 2025 Daniel Ciocîrlan
 ** https://www.youtube.com/watch?v=yfusAyUWxoI
+** ScalaDoc::Refs=>
+https://docs.scala-lang.org/scala3/guides/macros/quotes.html
 
 Topics:
 ** Inlining: compile time evaluation
@@ -13,3 +16,5 @@ Topics:
 *** Ideas
 * - evaluate if a method exists in the given instance name
 * - SQL queries / check correctness of the mapping etc
+
+How to: print/show messages at CT instead of using _println_
