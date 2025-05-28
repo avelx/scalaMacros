@@ -14,6 +14,7 @@ Topics:
 ** Scala compile time reflection
 
 ** TODO: synthesis a new type at the compile time / CT -> last 10 mins of the video
+~~** TODO: read and validate file~~ => DONE
 
 *** Ideas
 * - evaluate if a method exists in the given instance name

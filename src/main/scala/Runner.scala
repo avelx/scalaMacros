@@ -30,4 +30,6 @@ object Runner extends App {
   val magicMethod = callMeDynamically(magicInstance, "myMethod", 42)
   println(magicMethod)
 
+  val data = DataManager.readFile("/Users/pavel/devcore/plaground/scalaMacros/data/test.dat")
+  println(data)
 }
